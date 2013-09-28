@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        {% for lesson in lessons %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">课程信息</h3>
+            </div>
+            <div class="panel-body">
+                <h3 class="text-primary">主题:{{ lesson.name }}</h2>
+                <h4 class="text-info">时间: {{ lesson.time }}</h4>
+                <h4 class="text-info">地点: {{ lesson.place }}</h4>
+                <h4 class="text-muted">名额: {{ lesson.total_person }}</h4>
+                <h4 class="text-warning">剩余可预约名额: {{ lesson.remaining_num }}</h4>
+                <h4>课程描述</h4>
+                <h5>{{ lesson.description }}</h5>
+                {% if user.is_authenticated and user in lesson.users.all %}
+                    <h4 class="text-success">
+                        预约成功
+                    </h4>
+                    <a class="btn btn-danger" href="{% url 'cancel_lesson' lesson.pk %}">
+                        取消预约 要慎重啊!!!!!
+                    </a>
+                {% else %}
+                    {% if lesson.remaining_num >= 0 %}
+                        <a class="btn btn-primary" href="{% url 'book_lesson' lesson.pk %}">
+                            预约
+                        </a>
+                    {% else %}
+                        <h4 class="text-danger">
+                            预约名额满了哦 下次请赶早
+                        </h4>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

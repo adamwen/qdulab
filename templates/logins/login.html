@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">登陆</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" class="" method="post">
+                    {% csrf_token %}
+                    {% for field in login_form %}
+                      <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">登陆</button>
+                    <a class="btn btn-primary" href="{% url 'register' %}">注册</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

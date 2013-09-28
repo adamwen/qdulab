@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">注册</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" class="" method="post">
+                    {% csrf_token %}
+                    {% for field in user_form %}
+                    <div class="form-group">
+                      {{ field.label_tag }}
+                      {{ field }}
+                    </div>
+                    {% endfor %}
+
+                    {% for field in userprofile_form %}
+                    <div class="form-group">
+                      {{ field.label_tag }}
+                      {{ field }}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary">注册</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
